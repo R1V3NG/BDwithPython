@@ -32,9 +32,10 @@ def print_menu():
     print("3. Добавить товар")
     print("4. Добавить категорию")
     print("5. Удалить товар")
-    print("6. ВЫХОД")
+    print("6. Сохранить изменения")
 
 def print_tables(p, table):
+    clear_screen()
     if p == '1':
         print("\nСписок всех товаров:")
         print('-' * 51)
@@ -42,6 +43,7 @@ def print_tables(p, table):
         print('-' * 51)
         for element in table:
             print(f"|{element[0]:<20}| {element[1]:<10}| {element[2]:<15}|")
+        print('-' * 51)
     elif p == '2':
         print("\nСписок доступных категорий:")
         print('-' * 32)
@@ -49,6 +51,7 @@ def print_tables(p, table):
         print('-' * 32)
         for element in table:
             print(f"|{element[0]:<30}|")
+        print('-' * 32)
     elif p == '3' or p == '5':
         print("\nТаблица товаров:")
         print('-' * 60)
@@ -57,13 +60,14 @@ def print_tables(p, table):
         cursor.execute("SELECT * FROM products")
         for product in cursor.fetchall():
             print(f"|{product[0]:<5}| {product[1]:<20}| {product[2]:<10}| {product[3]:<15}|")
+        print('-' * 60)
     elif p == '4':
         print('-' * 49)
         print(f"|{'ID категории':<15}| {'Категории товаров':<30}|")
         print('-' * 49)
         for element in table:
             print(f"|{element[0]:<15}| {element[1]:<30}|")
-
+        print('-' * 49)
 def wait_for_enter():
     input("\nНажмите любую клавишу, чтобы продолжить...")
 
@@ -75,7 +79,7 @@ with sqlite3.connect("t1.db", timeout=20) as conn:
         choice = input("Ваш выбор: ")
         
         if choice == '6':
-            print("Выход из программы...")
+            print("Изменения сохранены. БД обновлена")
             break
 
         if choice == '1':
